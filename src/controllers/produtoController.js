@@ -19,7 +19,7 @@ const produtoController ={
             
             const produtos = await produtoModel.buscarTodos(); //Função buscarTodos leva para const produtos
 
-            res.listarProdutos(200).json(produtos)
+            res.status(200).json(produtos)
 
         } catch (error) {
             console.error('Erro ao listar produtos:', error);
