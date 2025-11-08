@@ -5,14 +5,14 @@ const { sql, getConnection } = require("../config/db") // IMPORTANDO -- Caminho 
 
 const produtoModel = {
     /**
- * Busca todos os produtos no banco de dados.
- * 
- * 
- * @async
- * @function buscarTodos
- * @returns {Promise<Array>} Retorna uma lista com todos os produtos.
- * @throws Mostra no console e propaga o erro caso a busca falhe.
- */
+    * Busca todos os produtos no banco de dados.
+    * 
+    * 
+    * @async
+    * @function buscarTodos
+    * @returns {Promise<Array>} Retorna uma lista com todos os produtos.
+    * @throws Mostra no console e propaga o erro caso a busca falhe.
+    */
     buscarTodos: async () => {
         try {
 
