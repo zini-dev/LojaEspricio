@@ -20,13 +20,25 @@ const produtoController = {
     listarProdutos: async (req, res) => {
         try {
 
+            const { idProduto } = req.query;
+
+            if (idProduto) {
+                if (idProduto.length != 36) {
+                    return res.status(400).json({ erro: `Id do Produto é inválido` })
+                }
+                
+                const produto = await produtoModel.buscarUm(idProduto);
+                return res.status(200).json(produto);
+
+            }
+
             const produtos = await produtoModel.buscarTodos(); //Função buscarTodos leva para const produtos
 
             res.status(200).json(produtos)
 
         } catch (error) {
             console.error('Erro ao listar produtos:', error);
-            res.status(500).json({ error: `Erro ao buscar produtos.` })
+            res.status(500).json({ error: `Erro interno no servidor ao buscar produtos.` })
         }
     },
 
@@ -60,7 +72,7 @@ const produtoController = {
                 return res.status(400).json({ erro: "Campos obrigatórios não preenchidos" })
             }
 
-            await produtoModel.inserirProduto(nomeProduto, precoProduto);
+            await produtoModel.inserirProduto(nomeProduto, precoProduto); // Cadastro
 
             res.status(201).json({ message: "Produto cadastrado com sucesso!" });
 

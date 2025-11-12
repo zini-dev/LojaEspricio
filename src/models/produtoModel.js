@@ -31,6 +31,29 @@ const produtoModel = {
         }
     },
 
+    buscarUm: async (idProduto) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+                SELECT * FROM Produtos
+                WHERE idProduto=@idProduto
+            `
+
+            const result = await pool.request()
+                .input("idProduto", sql.UniqueIdentifier, idProduto)
+                .query(querySQL);
+
+            return result.recordset;
+
+        } catch (error) {
+
+            console.error("Erro ao buscar produto", error);
+            throw error;
+
+        }
+    },
+
 
 
 

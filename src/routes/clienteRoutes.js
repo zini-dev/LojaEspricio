@@ -4,4 +4,6 @@ const {clienteController} = require("../controllers/clienteController");
 
 router.get("/clientes", clienteController.listarClientes)
 
-module.exports = {clienteRoutes: router}
+router.post("/clientes", clienteController.criarCliente)
+
+module.exports = {clienteRoutes: router};

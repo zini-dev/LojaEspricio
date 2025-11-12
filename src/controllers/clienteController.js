@@ -15,16 +15,22 @@ const clienteController = {
 
     criarCliente: async (req, res) => {
         try {
-            const {nomeCliente, cpfCliente} = req.body;
+            const { nomeCliente, cpfCliente } = req.body;
 
-            if(nomeCliente == "" || nomeCliente == undefined || cpfCliente == "" || cpfCliente == undefined || isNaN(cpfCliente)){
-                return res.status(400).json({erro: "Campos obrigatórios não preenchidos"})
+            if (nomeCliente == "" || nomeCliente == undefined || cpfCliente == "" || cpfCliente == undefined || isNaN(cpfCliente)) {
+                return res.status(400).json({ erro: "Campos obrigatórios não preenchidos" })
             }
+
+            
+
+            await clienteModel.inserirCliente(nomeCliente, cpfCliente);
+
+            res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
         } catch (error) {
-             console.error('Erro ao cadastrar cliente:', error);
-            res.status(500).json({ error: `Erro ao buscar cliente.` })
+            console.error('Erro ao cadastrar cliente:', error);
+            res.status(500).json({ error: `Erro ao cadastrar cliente.` })
         }
     }
 };
 
-module.exports = {clienteController}
+module.exports = { clienteController };

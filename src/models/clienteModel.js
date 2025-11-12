@@ -23,7 +23,7 @@ const clienteModel = {
             return result.recordset;
 
         } catch (error) {
-            console.error("Erro ao buscar produtos:", error)
+            console.error("Erro ao buscar clientes:", error)
             throw error;
         }
 
@@ -45,21 +45,21 @@ const clienteModel = {
             const pool = await getConnection();
 
             const querySQL = `
-        INSERT INTO Clientes (nomeCliente, cpfCliente)
-        VALUES (@nomeCliente, @cpfCliente)
+                INSERT INTO Clientes (nomeCliente, cpfCliente)
+                VALUES (@nomeCliente, @cpfCliente)
         `
 
             await pool.request()
                 .input("nomeCliente", sql.VarChar(100), nomeCliente)
                 .input("cpfCliente", sql.Char(11), cpfCliente)
                 .query(querySQL)
-                
+
         } catch (error) {
-            console.error("Erro ao inserir produto:", error)
+            console.error("Erro ao criar cliente:", error)
             throw error;
         }
 
     }
-}
+};
 
-module.exports = { clienteModel }
+module.exports = { clienteModel };
