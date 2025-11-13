@@ -31,6 +31,14 @@ const produtoModel = {
         }
     },
 
+     /**
+     * Verifica se o CPF já está cadastrado.
+     * 
+     * @async
+     * @function buscarUm
+     * @returns {Promise<array>} - Retorna uma lista com o cliente filtrado.
+     * @throws Mostra no console e propaga o erro caso a inserção falhe
+     */
     buscarUm: async (idProduto) => {
         try {
             const pool = await getConnection();

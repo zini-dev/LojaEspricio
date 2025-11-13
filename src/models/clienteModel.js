@@ -61,6 +61,15 @@ const clienteModel = {
 
     },
 
+
+    /**
+     * Verifica se o CPF já está cadastrado.
+     * 
+     * @async
+     * @function verificaCpf
+     * @returns {Promise<array>} - Retorna uma lista com os clientes filtrados.
+     * @throws Mostra no console e propaga o erro caso a inserção falhe
+     */
     verificaCpf: async (cpfCliente) => {
         try {
 

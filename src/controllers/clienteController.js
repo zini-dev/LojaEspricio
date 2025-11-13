@@ -1,6 +1,21 @@
 const { clienteModel } = require("../models/clienteModel")
 
 const clienteController = {
+
+
+     /**
+     * Controlador que lista todos os produtos do banco de dados
+     * 
+     * 
+     * @async
+     * @function listarClientes
+     * @param {object} req - Objeto da requisição (recebido do cliente HTTP)
+     * @param {object} res - Objeto da resposta (enviado ao cliente HTTP)
+     * 
+     * @returns {Promise<void>} Retorna uma resposta JSON com a lista de clientes
+     * 
+     * @throws Mostra no console e retorna erro 500 se ocorrer falha ao buscar os produtos.
+     */
     listarClientes: async (req, res) => {
         try {
 
@@ -14,6 +29,26 @@ const clienteController = {
     },
 
 
+
+        /**
+     * Controlador que cria um novo produto no banco de dados
+     * 
+     * @async
+     * @function criarCliente
+     * @param {object} req - Objeto da requisição (recebido do cliente HTTP)
+     * @param {object} res - Objeto da resposta (enviado ao cliente HTTP)
+     * @returns {Promise<void>} Retorna uma mensagem de sucesso ou erro em formato JSON
+     * @throws {400} Se algum campo obrigatório não for preenchido corretamente.
+     * @throws {500} Se ocorrer qualquer erro interno no servidor.
+     * 
+     * @example
+     * POST /produtos
+     * BODY
+     * {
+     *  "nomeCliente": "Guilherme Zini",
+     *  "cpfCliente": "52756445827"
+     * }
+     */
     criarCliente: async (req, res) => {
         try {
             const { nomeCliente, cpfCliente } = req.body;

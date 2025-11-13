@@ -33,6 +33,9 @@ async function getConnection() { // FUNÇÃO QUE CONECTA CONEXÕES COM O DB - FU
     }
 };
 
+
+
+
 // (async () => { //TESTANDO CONEXÃO
 
 //     const pool = await getConnection(); //AGUARDAR UMA CONEXÃO
