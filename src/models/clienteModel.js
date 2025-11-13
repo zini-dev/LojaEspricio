@@ -63,21 +63,22 @@ const clienteModel = {
 
     verificaCpf: async (cpfCliente) => {
         try {
-            
+
             const pool = await getConnection();
-    
+
             const querySQL = `
                 SELECT * FROM Clientes
                 WHERE cpfCliente=@cpfCliente
             `
-    
+
             const result = await pool.request()
                 .input("cpfCliente", sql.Char(11), cpfCliente)
                 .query(querySQL);
-    
+
             return result.recordset;
         } catch (error) {
-            
+            console.error("Erro ao verificar se CPF já está cadastrado:", error)
+            throw error;
         }
     }
 };
