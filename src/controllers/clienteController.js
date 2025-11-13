@@ -3,6 +3,7 @@ const { clienteModel } = require("../models/clienteModel")
 const clienteController = {
     listarClientes: async (req, res) => {
         try {
+
             const clientes = await clienteModel.buscarTodos();
 
             res.status(200).json(clientes)
@@ -17,11 +18,15 @@ const clienteController = {
         try {
             const { nomeCliente, cpfCliente } = req.body;
 
-            if (nomeCliente == "" || nomeCliente == undefined || cpfCliente == "" || cpfCliente == undefined || isNaN(cpfCliente)) {
+            if (nomeCliente == "" || nomeCliente == undefined || cpfCliente.trim() == "" || cpfCliente == undefined) {
                 return res.status(400).json({ erro: "Campos obrigatórios não preenchidos" })
             }
 
-            
+            const cliente = await clienteModel.verificaCpf(cpfCliente);
+
+            if (cliente.length > 0) {
+                return res.status(409).json({erro: "CPF já cadastrado!"});
+            }
 
             await clienteModel.inserirCliente(nomeCliente, cpfCliente);
 
