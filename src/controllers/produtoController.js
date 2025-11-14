@@ -115,6 +115,35 @@ const produtoController = {
             console.error('Erro ao atualizar produto:', error);
             res.status(500).json({ error: `Erro ao atualizar produtos.` });
         }
+    },
+
+    deletarProduto: async (req, res) => {
+        try {
+
+            const {idProduto} = req.params;
+
+
+            // VALIDAR SE ID EXISTE
+            if (idProduto.length != 36) {
+                return res.status(400).json({ erro: `Id do produto inválido` });
+            }
+
+            // VALIDAR SE PRODUTO EXISTE
+            const produto = await produtoModel.buscarUm(idProduto);
+
+            // VALIDAR SE TEM PRODUTO -- !produto == se for false entra dentro do IF -- Ele inverte
+            if (!produto || produto.length !== 1) {
+                return res.status(404).json({ erro: "Produto não encontrado" });
+            }
+
+            await produtoModel.deletarProduto(idProduto);
+
+            res.status(200).json({ message: "Produto deletado com sucesso" });
+
+        } catch (error) {
+            console.error('Erro ao deletar produto:', error);
+            res.status(500).json({ error: `Erro ao deletar produto.` });
+        }
     }
 };
 

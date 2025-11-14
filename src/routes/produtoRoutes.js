@@ -8,4 +8,6 @@ router.post("/produtos", produtoController.criarProduto); // dentro do "produtoC
 
 router.put("/produtos/:idProduto", produtoController.atualizarProduto);
 
+router.delete("/produtos/:idProduto", produtoController.deletarProduto);
+
 module.exports = {produtoRoutes: router}; // Produtos routes vai receber as rotas
