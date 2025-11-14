@@ -2,7 +2,7 @@ const { produtoModel } = require("../models/produtoModel"); // IMPORTANDO
 
 
 
-
+//Objeto
 const produtoController = {
     /**
      * Controlador que lista todos os produtos do banco de dados
@@ -26,7 +26,7 @@ const produtoController = {
                 if (idProduto.length != 36) {
                     return res.status(400).json({ erro: `Id do Produto é inválido` })
                 }
-                
+
                 const produto = await produtoModel.buscarUm(idProduto);
                 return res.status(200).json(produto);
 
@@ -79,6 +79,41 @@ const produtoController = {
         } catch (error) {
             console.error('Erro ao cadastrar produto:', error);
             res.status(500).json({ error: `Erro ao buscar produtos.` })
+        }
+    },
+
+    atualizarProduto: async (req, res) => {
+        try {
+            const { idProduto } = req.params; // Obrigatório ter idProduto por isso ser .params
+            const { nomeProduto, precoProduto } = req.body;
+
+            // VALIDAR SE ID EXISTE
+            if (idProduto.length != 36) {
+                return res.status(400).json({ erro: "Id do produto inválido!" })
+            }
+
+            // VALIDAR SE PRODUTO EXISTE
+            const produto = await produtoModel.buscarUm(idProduto);
+
+            // VALIDAR SE TEM PRODUTO -- !produto == se for false entra dentro do IF -- Ele inverte
+            if (!produto || produto.length !== 1) {
+                return res.status(404).json({ erro: "Produto não encontrado" })
+            }
+
+            // SE NÃO COLOCAR OS DADOS ELES CONTINUAM COM OS DADOS ATUAIS DO BANCO DE DADOS
+            const produtoAtual = produto[0];
+
+            // OPERADOR TERNÁRIO -- ou é nulo ou é indefinido -- Se for isso continua com os dados atuais do DB
+            const nomeAtualizado = nomeProduto ?? produtoAtual.nomeProduto;
+            const precoAtualizado = precoProduto ?? produtoAtual.precoProduto;
+
+            await produtoModel.atualizarProduto(idProduto, nomeAtualizado, precoAtualizado);
+
+            res.status(200).json({ message: "Produto atualizado com sucesso" });
+
+        } catch (error) {
+            console.error('Erro ao atualizar produto:', error);
+            res.status(500).json({ error: `Erro ao atualizar produtos.` });
         }
     }
 };

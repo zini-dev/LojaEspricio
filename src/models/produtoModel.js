@@ -1,3 +1,4 @@
+const { VarChar } = require("mssql");
 const { sql, getConnection } = require("../config/db") // IMPORTANDO -- Caminho para acessar o DB
 
 
@@ -23,7 +24,7 @@ const produtoModel = {
             const result = await pool.request()
                 .query(querySQL);
 
-            return result.recordset; // recordset retoran apenas o que está na tabela seleciona ( PRODUTOS )
+            return result.recordset; // recordset retorna apenas o que está na tabela selecionada ( PRODUTOS )
 
         } catch (error) {
             console.error("Erro ao buscar produtos:", error)
@@ -31,14 +32,15 @@ const produtoModel = {
         }
     },
 
-     /**
-     * Verifica se o CPF já está cadastrado.
-     * 
-     * @async
-     * @function buscarUm
-     * @returns {Promise<array>} - Retorna uma lista com o cliente filtrado.
-     * @throws Mostra no console e propaga o erro caso a inserção falhe
-     */
+    /**
+    * Busca apenas um produto no banco de dados.
+    * 
+    * @async
+    * @function buscarUm
+    * @param {string} idProduto - ID do produto em UUID(ID Universal) no banco de dados.
+    * @returns {Promise<array>} - Retorna uma lista com um produto caso encontre no banco de dados.
+    * @throws Mostra no console e propaga o erro caso a inserção falhe
+    */
     buscarUm: async (idProduto) => {
         try {
             const pool = await getConnection();
@@ -93,6 +95,46 @@ const produtoModel = {
         } catch (error) {
             console.error("Erro ao inserir produto:", error)
             throw error;
+        }
+    },
+
+
+    /**
+     * Atualiza um produto no banco de dados.
+     * 
+     * @async
+     * @function atualizarProduto
+     * @param {string} idProduto - ID do produto em UUID(ID Universal) no banco de dados.
+     * @param {string} nomeProduto - Nome do produto a ser atualizado.
+     * @param {number} precoProduto - Preço do produto a ser atualizado.
+     * @returns {Promise<void>} - Não retorna nada, apens executa a atualização.
+     * @throws Mostra no console e propaga o erro caso a atualização falhe
+     */
+    //idProduto para saber quem ta atualizando e itens que podem ser atualizados
+    atualizarProduto: async (idProduto, nomeProduto, precoProduto) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+                UPDATE Produtos
+                SET nomeProduto = @nomeProduto, 
+                    precoProduto = @precoProduto
+                WHERE idProduto = @idProduto
+            `;
+            // WHERE idProduto = @idProduto -- ALTERA APENAS O ID SELECIONADO -- UPDATE E DELETE NUNCA SE FAZ SEM WHERE
+            // SET -- SETAR NOVO VALOR em nomeProduto recebe da variavel nomeProduto
+
+            await pool.request()
+                .input("idProduto", sql.UniqueIdentifier, idProduto)
+                .input("nomeProduto", sql.VarChar(100), nomeProduto)
+                .input("precoProduto", sql.Decimal(10, 2), precoProduto)
+                .query(querySQL);
+
+        } catch (error) {
+
+            console.error("Erro ao atualizar produto:", error)
+            throw error;
+
         }
     }
 };
