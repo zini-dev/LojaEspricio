@@ -29,6 +29,29 @@ const clienteModel = {
 
     },
 
+     buscarUm: async (idCliente) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+                SELECT * FROM Clientes
+                WHERE idCliente = @idCliente
+            `
+
+            const result = await pool.request()
+                .input("idCliente", sql.UniqueIdentifier, idCliente)
+                .query(querySQL);
+
+            return result.recordset;
+
+        } catch (error) {
+
+            console.error("Erro ao buscar cliente", error);
+            throw error;
+
+        }
+    },
+
 
     /**
      * Insere um novo cliente no banco de dados.
@@ -88,6 +111,31 @@ const clienteModel = {
         } catch (error) {
             console.error("Erro ao verificar se CPF já está cadastrado:", error)
             throw error;
+        }
+    },
+
+    atualizarCliente: async (idCliente, nomeCliente, cpfCliente) => {
+        try {
+            const pool = await getConnection();
+
+            const querySQL = `
+                UPDATE Clientes
+                SET nomeCliente = @nomeCliente
+                    cpfCliente = @cpfCliente
+                WHERE idCliente = @idCliente
+            `;
+
+            await pool.request()
+                .input("idCliente", sql.UniqueIdentifier, idCliente)
+                .input("nomeCliente", sql.VarChar(100), nomeCliente)
+                .input("cpfCliente", sql.Decimal(10, 2), cpfCliente)
+                .query(querySQL);
+
+        } catch (error) {
+
+            console.error("Erro ao atualizar cliente", error)
+            throw error;
+
         }
     }
 };
