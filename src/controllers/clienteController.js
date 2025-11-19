@@ -117,6 +117,32 @@ const clienteController = {
             console.error('Erro ao atualizar cliente:', error);
             res.status(500).json({ error: `Erro ao atualizar cliente.` });
         }
+    },
+
+    deletarCliente: async (req,res) => {
+        try {
+            const {idCliente} = req.params;
+
+            // Verifica se o ID é válido
+            if(idCliente.length != 36){
+                return res.status(400).json({erro: "Id do cliente é inválido"})
+            }
+
+            // Verificado se o cliente existe
+            const cliente = await clienteModel.buscarUm(idCliente);
+
+            if(!cliente || cliente.length !== 1){
+                return res.status(404).json({erro: "Cliente não encontrado"});
+            }
+
+            await clienteModel.deletarCliente(idCliente);
+
+            res.status(200).json({message: "Cliente deletado com sucesso"})
+
+        } catch (error) {
+            console.error('Erro ao deletar cliente:', error);
+            res.status(500).json({ error: `Erro ao deletar cliente.` });
+        }
     }
 };
 

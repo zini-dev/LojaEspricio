@@ -137,6 +137,28 @@ const clienteModel = {
             throw error;
 
         }
+    },
+
+    deletarCliente: async (idCliente) => {
+        try {
+
+            const pool = await getConnection();
+
+            const querySQL = `
+                DELETE FROM Clientes
+                WHERE idCliente = @idCliente
+            `;
+
+            await pool.request()
+            .input("idCliente", sql.UniqueIdentifier, idCliente)
+            .query(querySQL)
+
+        } catch (error) {
+
+            console.error("Erro ao deletar o cliente:", error);
+            throw error;
+            
+        }
     }
 };
 
