@@ -109,7 +109,7 @@ const clienteController = {
             const nomeAtualizado = nomeCliente ?? clienteAtual.nomeCliente;
             const cpfAtualizado = cpfCliente ?? clienteAtual.cpfCliente;
 
-            await clienteModel.atualizarCliente(idCliente, nomeCliente, cpfCliente);
+            await clienteModel.atualizarCliente(idCliente, nomeAtualizado, cpfAtualizado);
 
             res.status(200).json({ message: "Cliente atualizado com sucesso" });
 
