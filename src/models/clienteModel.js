@@ -120,7 +120,7 @@ const clienteModel = {
 
             const querySQL = `
                 UPDATE Clientes
-                SET nomeCliente = @nomeCliente
+                SET nomeCliente = @nomeCliente,
                     cpfCliente = @cpfCliente
                 WHERE idCliente = @idCliente
             `;
@@ -128,7 +128,7 @@ const clienteModel = {
             await pool.request()
                 .input("idCliente", sql.UniqueIdentifier, idCliente)
                 .input("nomeCliente", sql.VarChar(100), nomeCliente)
-                .input("cpfCliente", sql.Decimal(10, 2), cpfCliente)
+                .input("cpfCliente", sql.Char(11), cpfCliente)
                 .query(querySQL);
 
         } catch (error) {
