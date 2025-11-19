@@ -19,7 +19,7 @@ collection:
         meta:
           id: req_28b77cb4c3f94438b764bdc7fbe274eb
           created: 1762466891064
-          modified: 1763157383836
+          modified: 1763588792384
           isPrivate: false
           description: ""
           sortKey: -1762466891064
@@ -46,7 +46,7 @@ collection:
         meta:
           id: req_1dc3d982c36548e0a93a418bb467590d
           created: 1762469477750
-          modified: 1763160886098
+          modified: 1763588826852
           isPrivate: false
           description: ""
           sortKey: -1762469477750
@@ -55,8 +55,8 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"nomeProduto": "TESTE TESTE TESTE TESTE",
-            	"precoProduto": 100000
+            	"nomeProduto": "Notebook DELL - Aspire",
+            	"precoProduto": 4500
             }
         headers:
           - name: Content-Type
@@ -71,41 +71,12 @@ collection:
             send: true
             store: true
           rebuildPath: true
-      - url: localhost:8081/produtos/D020E572-AE3C-49FF-9122-9D6993DAD084
-        name: Atualizar Produto
-        meta:
-          id: req_8ca58c0e4c2c450b85d3aae1f317277d
-          created: 1763079612957
-          modified: 1763160730764
-          isPrivate: false
-          description: ""
-          sortKey: -1763079612957
-        method: PUT
-        body:
-          mimeType: application/json
-          text: |-
-            {
-            	"precoProduto": 20000
-            }
-        headers:
-          - name: Content-Type
-            value: application/json
-          - name: User-Agent
-            value: insomnia/12.0.0
-        settings:
-          renderRequestBody: true
-          encodeUrl: true
-          followRedirects: global
-          cookies:
-            send: true
-            store: true
-          rebuildPath: true
-      - url: localhost:8081/produtos/5FE34C9F-1730-4C67-9D26-227C89E2818A
+      - url: localhost:8081/produtos/A2F7B9E6-70FC-4557-B1E1-DCD8740169CD
         name: Deletar Produto
         meta:
           id: req_bff2938c1b64496cb063972586795065
           created: 1763160148625
-          modified: 1763161375343
+          modified: 1763588870249
           isPrivate: false
           description: ""
           sortKey: -1763160148625
@@ -121,30 +92,59 @@ collection:
             send: true
             store: true
           rebuildPath: true
+      - url: localhost:8081/produtos/51C3F64F-19BA-4438-84BA-FFA4D6BDE243
+        name: Atualizar Produto
+        meta:
+          id: req_d985b10299f04bde8f155c2872942f9c
+          created: 1763164155137
+          modified: 1763590150821
+          isPrivate: false
+          description: ""
+          sortKey: -1762820938475.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"precoProduto": 4500
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
   - name: Clientes
     meta:
       id: fld_779f5cc1328e444d8f562a7e221e1e77
       created: 1762560819831
-      modified: 1762560819831
+      modified: 1763164149157
       sortKey: -1762560819831
       description: ""
     children:
       - url: localhost:8081/clientes
-        name: Listar clientes
+        name: Listar Clientes
         meta:
           id: req_8475b8b50a944796bee8cd5d4d8dad99
           created: 1762560822649
-          modified: 1762991212870
+          modified: 1763166914475
           isPrivate: false
           description: ""
           sortKey: -1762560822649
         method: GET
         parameters:
           - id: pair_111d238f06974a5fafa178e32151ea93
-            name: ""
-            value: ""
+            name: idCliente
+            value: 8408CCF8-8690-4C62-9129-BD85B68C7CE2
             description: ""
-            disabled: false
+            disabled: true
         headers:
           - name: User-Agent
             value: insomnia/12.0.0
@@ -157,11 +157,11 @@ collection:
             store: true
           rebuildPath: true
       - url: localhost:8081/clientes
-        name: Criar cliente
+        name: Criar Cliente
         meta:
           id: req_8d933bfbc35e4d0f998e1a95769e0e95
           created: 1762562263994
-          modified: 1762993349995
+          modified: 1763592593527
           isPrivate: false
           description: ""
           sortKey: -1762562263994
@@ -170,12 +170,62 @@ collection:
           mimeType: application/json
           text: |-
             {
-            	"nomeCliente": "Vinicius Zini Rosa",
-            	"cpfCliente": "52756445828"
+            	"nomeCliente": "Raíssa Dainese",
+            	"cpfCliente": "11156445111"
             }
         headers:
           - name: Content-Type
             value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/0C65743C-0D85-4A45-8760-A0B0C76207B5
+        name: Atualizar Cliente
+        meta:
+          id: req_8ca58c0e4c2c450b85d3aae1f317277d
+          created: 1763079612957
+          modified: 1763592714464
+          isPrivate: false
+          description: ""
+          sortKey: -1762562264194
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nomeCliente": "Guilherme Zini Rosa"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.0.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/C1DB6FF3-753C-4189-9A9C-F97E90A4A72D
+        name: Deletar Cliente
+        meta:
+          id: req_baa43fc7c0714c5a90e05022bd9bdd6e
+          created: 1763164162165
+          modified: 1763591972633
+          isPrivate: false
+          description: ""
+          sortKey: -1762562264294
+        method: DELETE
+        headers:
           - name: User-Agent
             value: insomnia/12.0.0
         settings:
