@@ -29,6 +29,15 @@ const clienteModel = {
 
     },
 
+    /**
+    * Busca apenas um produto no banco de dados.
+    * 
+    * @async
+    * @function buscarUm
+    * @param {string} idCliente - ID do cliente em UUID(ID Universal) no banco de dados.
+    * @returns {Promise<array>} - Retorna uma lista com um cliente caso encontre no banco de dados.
+    * @throws Mostra no console e propaga o erro caso a inserção falhe
+    */
      buscarUm: async (idCliente) => {
         try {
             const pool = await getConnection();
@@ -114,6 +123,18 @@ const clienteModel = {
         }
     },
 
+    /**
+     * Atualiza um cliente no banco de dados.
+     * 
+     * @async
+     * @function atualizarCliente
+     * @param {string} idCliente - ID do cliente em UUID(ID Universal) no banco de dados.
+     * @param {string} nomeCliente - Nome do cliente a ser atualizado.
+     * @param {number} cpfCliente - CPF do cliente a ser atualizado.
+     * @returns {Promise<void>} - Não retorna nada, apens executa a atualização.
+     * @throws Mostra no console e propaga o erro caso a atualização falhe
+     */
+    //idProduto para saber quem ta atualizando e itens que podem ser atualizados
     atualizarCliente: async (idCliente, nomeCliente, cpfCliente) => {
         try {
             const pool = await getConnection();
@@ -139,6 +160,15 @@ const clienteModel = {
         }
     },
 
+    /**
+     * Deleta um cliente no banco de dados.
+     * 
+     * @async
+     * @function deletarCliente
+     * @param {string} idCliente - ID do cliente para selecionar e ser excluido
+     * @returns {Promise<void>} - Não retorna nada, apens executa a exclusão.
+     * @throws Mostra no console e propaga o erro caso a atualização falhe
+     */
     deletarCliente: async (idCliente) => {
         try {
 

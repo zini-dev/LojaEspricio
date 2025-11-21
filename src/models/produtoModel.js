@@ -138,6 +138,15 @@ const produtoModel = {
         }
     },
 
+    /**
+     * Deleta um produto no banco de dados.
+     * 
+     * @async
+     * @function deletarProduto
+     * @param {string} idProduto - ID do produto para selecionar e ser excluido
+     * @returns {Promise<void>} - Não retorna nada, apens executa a exclusão.
+     * @throws Mostra no console e propaga o erro caso a atualização falhe
+     */
     deletarProduto: async (idProduto) => {
         try {
             const pool = await getConnection();
