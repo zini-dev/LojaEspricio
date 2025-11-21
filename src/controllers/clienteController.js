@@ -78,9 +78,12 @@ const clienteController = {
             await clienteModel.inserirCliente(nomeCliente, cpfCliente);
 
             res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
+
         } catch (error) {
+
             console.error('Erro ao cadastrar cliente:', error);
-            res.status(500).json({ error: `Erro ao cadastrar cliente.` })
+            res.status(500).json({ erro: `Erro ao cadastrar cliente.` })
+
         }
     },
 
@@ -119,25 +122,25 @@ const clienteController = {
         }
     },
 
-    deletarCliente: async (req,res) => {
+    deletarCliente: async (req, res) => {
         try {
-            const {idCliente} = req.params;
+            const { idCliente } = req.params;
 
             // Verifica se o ID é válido
-            if(idCliente.length != 36){
-                return res.status(400).json({erro: "Id do cliente é inválido"})
+            if (idCliente.length != 36) {
+                return res.status(400).json({ erro: "Id do cliente é inválido" })
             }
 
             // Verificado se o cliente existe
             const cliente = await clienteModel.buscarUm(idCliente);
 
-            if(!cliente || cliente.length !== 1){
-                return res.status(404).json({erro: "Cliente não encontrado"});
+            if (!cliente || cliente.length !== 1) {
+                return res.status(404).json({ erro: "Cliente não encontrado" });
             }
 
             await clienteModel.deletarCliente(idCliente);
 
-            res.status(200).json({message: "Cliente deletado com sucesso"})
+            res.status(200).json({ message: "Cliente deletado com sucesso" })
 
         } catch (error) {
             console.error('Erro ao deletar cliente:', error);

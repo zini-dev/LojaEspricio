@@ -38,7 +38,7 @@ const clienteModel = {
     * @returns {Promise<array>} - Retorna uma lista com um cliente caso encontre no banco de dados.
     * @throws Mostra no console e propaga o erro caso a inserção falhe
     */
-     buscarUm: async (idCliente) => {
+    buscarUm: async (idCliente) => {
         try {
             const pool = await getConnection();
 
@@ -180,14 +180,14 @@ const clienteModel = {
             `;
 
             await pool.request()
-            .input("idCliente", sql.UniqueIdentifier, idCliente)
-            .query(querySQL)
+                .input("idCliente", sql.UniqueIdentifier, idCliente)
+                .query(querySQL)
 
         } catch (error) {
 
             console.error("Erro ao deletar o cliente:", error);
             throw error;
-            
+
         }
     }
 };

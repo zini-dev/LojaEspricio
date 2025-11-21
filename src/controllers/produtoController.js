@@ -120,7 +120,7 @@ const produtoController = {
     deletarProduto: async (req, res) => {
         try {
 
-            const {idProduto} = req.params;
+            const { idProduto } = req.params;
 
 
             // VALIDAR SE ID EXISTE
