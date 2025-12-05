@@ -1,4 +1,18 @@
-const { clienteModel } = require("../models/clienteModel")
+const { clienteModel } = require("../models/clienteModel");
+const bcrypt = require("bcrypt");
+const { z, ZodError } = require("zod");
+
+const clienteZod = z.object({
+    body: z.object({
+        nomeCliente: z.string(),
+        cpfCliente: z.string().min(11, "CPF não tem 11 caracteres"),
+        emailCliente: z.email("Email Inválido!"),
+        senhaCliente: z.string()
+            .min(8, "A senha deve ter pelo menos 8 caracteres")
+            .regex(/[A-Z]/, "A senha deve ter pelo menos uma letra maiúscula")
+    })
+});
+
 
 const clienteController = {
 
@@ -63,23 +77,38 @@ const clienteController = {
  */
     criarCliente: async (req, res) => {
         try {
-            const { nomeCliente, cpfCliente } = req.body;
 
-            if (nomeCliente == "" || nomeCliente == undefined || cpfCliente.trim() == "" || cpfCliente == undefined) {
-                return res.status(400).json({ erro: "Campos obrigatórios não preenchidos" })
-            }
+            dados = clienteZod.parse({ body: req.body });
 
-            const cliente = await clienteModel.verificaCpf(cpfCliente);
+            const { nomeCliente, cpfCliente, emailCliente, senhaCliente } = dados.body;
+
+
+            // if (nomeCliente == "" || nomeCliente == undefined || cpfCliente.trim() == "" || cpfCliente == undefined || emailCliente.trim() == "" || emailCliente == undefined || !emailCliente.includes("@") || senhaCliente == "" || senhaCliente == undefined || senhaCliente.length > 8 || !isUpperCase(senhaCliente)) {
+            //     console.log(isUpperCase(senhaCliente));
+            //     return res.status(400).json({ erro: "Campos obrigatórios não preenchidos" })
+            // }
+
+            const saltRounds = 10;
+            const senhaCriptografada = bcrypt.hashSync(senhaCliente, saltRounds);
+
+            const cliente = await clienteModel.verificaCpfAndEmail(cpfCliente, emailCliente);
 
             if (cliente.length > 0) {
-                return res.status(409).json({ erro: "CPF já cadastrado!" });
-            }
+                return res.status(409).json({ erro: "CPF ou E-Mail já cadastrado!" });
+            };
 
-            await clienteModel.inserirCliente(nomeCliente, cpfCliente);
+            await clienteModel.inserirCliente(nomeCliente, cpfCliente, emailCliente, senhaCriptografada);
 
             res.status(201).json({ message: "Cliente cadastrado com sucesso!" });
 
         } catch (error) {
+
+            if (error instanceof ZodError) {
+
+
+                return res.status(400).json(error.format().body);
+            }
+
 
             console.error('Erro ao cadastrar cliente:', error);
             res.status(500).json({ erro: `Erro ao cadastrar cliente.` })

@@ -1,4 +1,5 @@
 const { sql, getConnection } = require("../config/db")
+const bcrypt = require("bcrypt");
 
 const clienteModel = {
 
@@ -72,18 +73,20 @@ const clienteModel = {
      * @returns {Promise<void>} - Não retorna nada, apenas executa a inserção
      * @throws Mostra no console e propaga o erro caso a inserção falhe
      */
-    inserirCliente: async (nomeCliente, cpfCliente) => {
+    inserirCliente: async (nomeCliente, cpfCliente, emailCliente, senhaCliente) => {
         try {
             const pool = await getConnection();
 
             const querySQL = `
-                INSERT INTO Clientes (nomeCliente, cpfCliente)
-                VALUES (@nomeCliente, @cpfCliente)
+                INSERT INTO Clientes (nomeCliente, cpfCliente, emailCliente, senhaCliente)
+                VALUES (@nomeCliente, @cpfCliente, @emailCliente, @senhaCliente)
         `
 
             await pool.request()
                 .input("nomeCliente", sql.VarChar(100), nomeCliente)
                 .input("cpfCliente", sql.Char(11), cpfCliente)
+                .input("emailCliente", sql.VarChar(200), emailCliente)
+                .input("senhaCliente", sql.VarChar(255), senhaCliente)
                 .query(querySQL)
 
         } catch (error) {
@@ -102,18 +105,19 @@ const clienteModel = {
      * @returns {Promise<array>} - Retorna uma lista com os clientes filtrados.
      * @throws Mostra no console e propaga o erro caso a inserção falhe
      */
-    verificaCpf: async (cpfCliente) => {
+    verificaCpfAndEmail: async (cpfCliente, emailCliente) => {
         try {
 
             const pool = await getConnection();
 
             const querySQL = `
                 SELECT * FROM Clientes
-                WHERE cpfCliente=@cpfCliente
+                WHERE cpfCliente=@cpfCliente OR emailCliente = @emailCLiente
             `
 
             const result = await pool.request()
                 .input("cpfCliente", sql.Char(11), cpfCliente)
+                .input("emailCliente", sql.VarChar(200), emailCliente)
                 .query(querySQL);
 
             return result.recordset;
