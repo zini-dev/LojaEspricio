@@ -1,10 +1,10 @@
 const sql = require("mssql"); //Importação da biblioteca MSSQL
 
 const config = { // const de CONFIGURAÇÃO para configuração de DB
-    user: "sa",
-    password: "123456789",
-    server: "localhost",
-    database: "LojaEspricio",
+    user: process.env.USER_DB,
+    password: process.env.PASSWORD_DB,
+    server: process.env.SERVER_DB,
+    database: process.env.NAME_DB,
     options: { //Deixa mais fácil de conectar
         encrypt: true, //Conexão já esta segura
         trustServerCertificate: true, //Ignorar se tiver erro pois não precisa de certificado
@@ -36,14 +36,16 @@ async function getConnection() { // FUNÇÃO QUE CONECTA CONEXÕES COM O DB - FU
 
 
 
-// (async () => { //TESTANDO CONEXÃO
+ (async () => { // Test connection
 
-//     const pool = await getConnection(); //AGUARDAR UMA CONEXÃO
+     const pool = await getConnection(); //AGUARDAR UMA CONEXÃO
 
-//     const result = await pool.request().query("SELECT * FROM Produtos"); // FAZ UMA CONSULTA NA TABELA "PRODUTOS"
+    if(pool){console.log("Conexão com o DB estabelecida com sucesso")}
+ })();
 
-//     console.log(result.recordset);
 
-// })();
 
+
+
+ 
 module.exports = { sql, getConnection }; //EXPORTANDO --  biblioteca sql e função getConnection
