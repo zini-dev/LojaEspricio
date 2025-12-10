@@ -72,7 +72,7 @@ const clienteController = {
  * BODY
  * {
  *  "nomeCliente": "Guilherme Zini",
- *  "cpfCliente": "52756445827"
+ *  "cpfCliente": "52756444357"
  * }
  */
     criarCliente: async (req, res) => {
