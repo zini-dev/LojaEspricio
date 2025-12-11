@@ -1,0 +1,274 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: Loja Espricio
+meta:
+  id: wrk_6593f4cc08f24c6aa5b99343bc113373
+  created: 1764885706571
+  modified: 1764886336443
+  description: ""
+collection:
+  - name: Produtos
+    meta:
+      id: fld_28b423027333412a856fcb4bd7c5f3ea
+      created: 1764886411185
+      modified: 1764886413252
+      sortKey: -1764886411185
+      description: ""
+    children:
+      - url: localhost:8081/produtos
+        name: Listar produto
+        meta:
+          id: req_e93f9b5db7de4cb7a3b4efcfcc3a14a7
+          created: 1764886416283
+          modified: 1764886442621
+          isPrivate: false
+          description: ""
+          sortKey: -1764886416283
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/produtos
+        name: Inserir produto
+        meta:
+          id: req_bb30385c19f34dd8859cfa53aa62198e
+          created: 1764886484008
+          modified: 1764886500637
+          isPrivate: false
+          description: ""
+          sortKey: -1764886484008
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/produtos/
+        name: Deletar produto
+        meta:
+          id: req_c756559e1afa4c71a9cd13f82c925216
+          created: 1765411175598
+          modified: 1765412038723
+          isPrivate: false
+          description: ""
+          sortKey: -1765411175598
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/produtos/
+        name: Atualizar produto
+        meta:
+          id: req_79a41af6783d45459b5ba6ca3a6347f0
+          created: 1765411188609
+          modified: 1765412035699
+          isPrivate: false
+          description: ""
+          sortKey: -1765411188609
+        method: PUT
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Clientes
+    meta:
+      id: fld_ee5cfa5f4aba4baeb7d0f83d0176cbc2
+      created: 1764888928326
+      modified: 1764888928326
+      sortKey: -1764888928326
+      description: ""
+    children:
+      - url: localhost:8081/clientes
+        name: Listar cliente
+        meta:
+          id: req_590f92e996d14e938dca8b66352da203
+          created: 1764888930271
+          modified: 1764888940156
+          isPrivate: false
+          description: ""
+          sortKey: -1764888930271
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes
+        name: Inserir cliente
+        meta:
+          id: req_f6dc281872b54b708cec10773043591e
+          created: 1764888971433
+          modified: 1765411135955
+          isPrivate: false
+          description: ""
+          sortKey: -1764888971433
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nomeCliente": "Guilherme Zini",
+            	"cpfCliente": "52756445827",
+            	"emailCliente": "guilhermerosazini@gmail.com",
+            	"senhaCliente": "Gzr12260510&&"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/
+        name: Deletar cliente
+        meta:
+          id: req_9fe281d0d4dd43ffb05c51b1edf55a86
+          created: 1764891807192
+          modified: 1765412027589
+          isPrivate: false
+          description: ""
+          sortKey: -1764891807192
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/
+        name: Atualizar cliente
+        meta:
+          id: req_801e46deb30d42f8bdaf0031b8e20b83
+          created: 1765411158759
+          modified: 1765412032894
+          isPrivate: false
+          description: ""
+          sortKey: -1764891807292
+        method: PUT
+        headers:
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: localhost:8081/clientes/login
+        name: Login cliente
+        meta:
+          id: req_f142e0ce2b7b49788fb64358e8d91ece
+          created: 1765411408818
+          modified: 1765412221140
+          isPrivate: false
+          description: ""
+          sortKey: -1765411408818
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"emailCliente": "guilhermerosazini@gmail.com",
+            	"senhaCliente": "Gzr12260510&&"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/12.1.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_0ce3f1af28daf06c226a3f822951651065730e04
+    created: 1764885706652
+    modified: 1765412962862
+  cookies:
+    - id: 64056292-382e-4dcb-86b7-895795234542
+      key: token
+      value: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZENsaWVudGUiOiI0NjhDQ0Q2Ny0xM0I5LTQ4NUEtODkyMy1ERjlGOEY3NEEzNTUiLCJub21lQ2xpZW50ZSI6Ikd1aWxoZXJtZSBaaW5pIiwidGlwb1VzdWFyaW8iOiJjbGllbnRlIiwiaWF0IjoxNzY1NDEyOTYyLCJleHAiOjE3NjU0MTY1NjJ9.v5S4TWyD_b8Qk1543xr2D9yoUEaWVncE8OLwnu0SXyg
+      domain: localhost
+      path: /
+      secure: false
+      httpOnly: true
+      hostOnly: true
+environments:
+  name: Base Environment
+  meta:
+    id: env_0ce3f1af28daf06c226a3f822951651065730e04
+    created: 1764885706646
+    modified: 1764885706646
+    isPrivate: false
