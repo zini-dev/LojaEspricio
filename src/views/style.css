@@ -1,0 +1,86 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+
+body {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-container h2 {
+    margin-bottom: 30px;
+    color: #333;
+    text-align: center;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #333;
+    border: none;
+    border-bottom: 1px solid #999;
+    outline: none;
+    background: transparent;
+}
+
+.input-group label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #999;
+    pointer-events: none;
+    transition: .5s;
+}
+
+.input-group input:focus ~ label,
+.input-group input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #764ba2;
+    font-size: 12px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #764ba2;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background .3s;
+    margin-top: 10px;
+}
+
+button:hover { background-color: #5b3a7d; }
+
+#mensagem {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+.sucesso { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+.erro { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }

@@ -48,7 +48,7 @@ const authController = {
             });
 
 
-            res.status(200).json({message: "Login realizado com sucesso!", token})
+            res.status(200).json({message: "Login realizado com sucesso!"})
 
         } catch (error) {
             console.error("Erro no login do cliente", error);
