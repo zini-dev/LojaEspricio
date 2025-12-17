@@ -22,7 +22,7 @@ form.addEventListener('submit', async (e) => {
             senhaCliente: senhaDigitada
         };
 
-        const response = await fetch('http://localhost:8081/clientes/login', {
+        const response = await fetch('https://api-lojaespricio.onrender.com/clientes/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(dadosLogin)
