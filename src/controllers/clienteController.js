@@ -46,7 +46,7 @@ const clienteController = {
             }
 
             const clientes = await clienteModel.buscarTodos();
-
+                
             res.status(200).json(clientes)
         } catch (error) {
             console.error('Erro ao listar clientes:', error);
