@@ -4,27 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login Cliente | Loja Espricio</title>
-    
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 
     <div class="login-container">
         <h2>Loja Espricio</h2>
+
         <form id="loginForm">
             <div class="input-group">
                 <input type="text" id="emailCliente" required>
                 <label>E-mail ou CPF</label>
             </div>
+
             <div class="input-group">
                 <input type="password" id="senhaCliente" required>
                 <label>Senha</label>
             </div>
+
             <button type="submit" id="btnEntrar">ENTRAR</button>
         </form>
+
         <div id="mensagem"></div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- JS vindo da pasta public -->
+    <script src="js/script.js"></script>
 </body>
 </html>

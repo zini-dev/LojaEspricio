@@ -1,12 +1,10 @@
-// ARQUIVO: public/script.js (Lógica de Login)
-
 const form = document.getElementById('loginForm');
 const msgDiv = document.getElementById('mensagem');
 const btn = document.getElementById('btnEntrar');
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault(); // Impede a página de recarregar
-    
+    e.preventDefault();
+
     btn.innerText = "Verificando...";
     btn.disabled = true;
     msgDiv.style.display = 'none';
@@ -17,11 +15,10 @@ form.addEventListener('submit', async (e) => {
 
     try {
         const dadosLogin = {
-            emailCliente: emailDigitado, 
+            emailCliente: emailDigitado,
             senhaCliente: senhaDigitada
         };
 
-        // Rota de LOGIN
         const response = await fetch('https://api-lojaespricio.onrender.com/clientes/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -34,10 +31,9 @@ form.addEventListener('submit', async (e) => {
         if (response.ok) {
             msgDiv.innerText = "✅ " + textoResposta;
             msgDiv.classList.add('sucesso');
-            
-            // Redireciona para o dashboard após 1 segundo
+
             setTimeout(() => {
-                window.location.href = 'dashboard.html';
+                window.location.href = '/dashboard';
             }, 1000);
         } else {
             msgDiv.innerText = "❌ " + textoResposta;
@@ -45,14 +41,13 @@ form.addEventListener('submit', async (e) => {
         }
 
     } catch (error) {
-        console.error("Erro:", error);
         msgDiv.innerText = "⚠️ Erro de conexão!";
         msgDiv.classList.add('erro');
     } finally {
         msgDiv.style.display = 'block';
         if (!msgDiv.classList.contains('sucesso')) {
-             btn.innerText = "ENTRAR";
-             btn.disabled = false;
+            btn.innerText = "ENTRAR";
+            btn.disabled = false;
         }
     }
 });
