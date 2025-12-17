@@ -84,3 +84,33 @@ button:hover { background-color: #5b3a7d; }
 }
 .sucesso { background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
 .erro { background-color: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+/* --- CORREÇÃO DE CONFLITO (Login x Modal) --- */
+
+/* Força o container do input a ser um bloco simples */
+.modal-content .input-group {
+    position: static !important;
+    border-bottom: none !important;
+    margin-bottom: 15px !important;
+}
+
+/* Tira o label de dentro do input e coloca em cima */
+.modal-content .input-group label {
+    position: static !important;
+    transform: none !important;
+    pointer-events: auto !important;
+    font-size: 14px !important;
+    color: #333 !important;
+    display: block !important;
+    margin-bottom: 5px !important;
+}
+
+/* Garante que o input tenha borda e fundo branco */
+.modal-content .input-group input {
+    position: static !important;
+    width: 100% !important;
+    border: 1px solid #ccc !important;
+    background: white !important;
+    color: #333 !important;
+    padding: 10px !important;
+    height: auto !important;
+}

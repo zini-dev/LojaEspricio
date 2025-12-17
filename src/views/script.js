@@ -1,18 +1,17 @@
+// ARQUIVO: public/script.js (Lógica de Login)
 
 const form = document.getElementById('loginForm');
 const msgDiv = document.getElementById('mensagem');
 const btn = document.getElementById('btnEntrar');
 
 form.addEventListener('submit', async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Impede a página de recarregar
     
-    // Feedback visual de carregamento
     btn.innerText = "Verificando...";
     btn.disabled = true;
     msgDiv.style.display = 'none';
     msgDiv.className = '';
 
-    // Pega os valores dos inputs
     const emailDigitado = document.getElementById('emailCliente').value;
     const senhaDigitada = document.getElementById('senhaCliente').value;
 
@@ -22,6 +21,7 @@ form.addEventListener('submit', async (e) => {
             senhaCliente: senhaDigitada
         };
 
+        // Rota de LOGIN
         const response = await fetch('https://api-lojaespricio.onrender.com/clientes/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -29,15 +29,16 @@ form.addEventListener('submit', async (e) => {
         });
 
         const data = await response.json();
-        
-        console.log("Status:", response.status);
-        console.log("Resposta:", data);
-
         const textoResposta = data.message || data.error || "Erro desconhecido";
 
         if (response.ok) {
             msgDiv.innerText = "✅ " + textoResposta;
             msgDiv.classList.add('sucesso');
+            
+            // Redireciona para o dashboard após 1 segundo
+            setTimeout(() => {
+                window.location.href = 'dashboard.html';
+            }, 1000);
         } else {
             msgDiv.innerText = "❌ " + textoResposta;
             msgDiv.classList.add('erro');
@@ -45,11 +46,13 @@ form.addEventListener('submit', async (e) => {
 
     } catch (error) {
         console.error("Erro:", error);
-        msgDiv.innerText = "⚠️ Erro de conexão! Verifique se o servidor está rodando.";
+        msgDiv.innerText = "⚠️ Erro de conexão!";
         msgDiv.classList.add('erro');
     } finally {
         msgDiv.style.display = 'block';
-        btn.innerText = "ENTRAR";
-        btn.disabled = false;
+        if (!msgDiv.classList.contains('sucesso')) {
+             btn.innerText = "ENTRAR";
+             btn.disabled = false;
+        }
     }
 });
