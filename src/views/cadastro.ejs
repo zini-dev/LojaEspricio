@@ -6,9 +6,16 @@
     <title>Cadastro | Loja Espricio</title>
     <link rel="stylesheet" href="/css/style.css"> 
     <style>
-        /* Ajuste rápido para o link de voltar */
         .link-voltar { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; font-size: 14px;}
         .link-voltar:hover { color: #764ba2; }
+        
+        /* Estilo para mensagem de erro/sucesso */
+        .aviso { 
+            text-align: center; 
+            margin-top: 10px; 
+            font-size: 14px; 
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -32,10 +39,81 @@
             <button type="submit" id="btnCadastrar">CADASTRAR</button>
         </form>
 
-        <div id="mensagemCadastro" style="display:none; margin-top:10px; text-align:center;"></div>
+        <div id="mensagemCadastro" class="aviso"></div>
 
         <a href="/" class="link-voltar">← Voltar para Login</a>
     </div>
 
-    </body>
+    <script>
+        // URL da sua API (Baseada no seu dashboard)
+        const API_URL = 'https://api-lojaespricio.onrender.com/clientes';
+
+        const form = document.getElementById('signupForm');
+        const msgDiv = document.getElementById('mensagemCadastro');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault(); // Impede a página de recarregar
+            
+            // 1. Pega os valores dos inputs
+            const nome = document.getElementById('nomeNew').value;
+            const cpf = document.getElementById('cpfNew').value;
+            const email = document.getElementById('emailNew').value;
+            const senha = document.getElementById('senhaNew').value;
+
+            // 2. Monta o objeto exatamente igual ao seu Banco de Dados
+            const novoCliente = {
+                nomeCliente: nome,
+                cpfCliente: cpf,
+                emailCliente: email,
+                senhaCliente: senha
+            };
+
+            // Muda o texto do botão para dar feedback visual
+            const btn = document.getElementById('btnCadastrar');
+            const textoOriginal = btn.innerText;
+            btn.innerText = "CADASTRANDO...";
+            btn.disabled = true;
+            msgDiv.innerText = "";
+
+            try {
+                // 3. Envia para a API usando FETCH
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(novoCliente)
+                });
+
+                if (response.ok) {
+                    // Sucesso!
+                    msgDiv.style.color = "green";
+                    msgDiv.innerText = "Conta criada com sucesso! Redirecionando...";
+                    
+                    // Espera 2 segundos e manda para o login
+                    setTimeout(() => {
+                        window.location.href = '/';
+                    }, 2000);
+                } else {
+                    // Erro da API (ex: CPF já existe)
+                    const erro = await response.json(); // Tenta ler mensagem de erro da API
+                    msgDiv.style.color = "red";
+                    msgDiv.innerText = "Erro ao cadastrar: " + (erro.message || "Verifique os dados.");
+                    restaurarBotao();
+                }
+
+            } catch (error) {
+                console.error(error);
+                msgDiv.style.color = "red";
+                msgDiv.innerText = "Erro de conexão com o servidor.";
+                restaurarBotao();
+            }
+
+            function restaurarBotao() {
+                btn.innerText = textoOriginal;
+                btn.disabled = false;
+            }
+        });
+    </script>
+</body>
 </html>
