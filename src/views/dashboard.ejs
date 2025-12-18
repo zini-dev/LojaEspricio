@@ -4,82 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Painel de Produtos | Loja Espricio</title>
-    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* --- ESTILOS GERAIS DO DASHBOARD --- */
+        /* --- ESTILOS GERAIS --- */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; margin: 0; padding: 0; display: flex; justify-content: center; }
+
         .container-dashboard {
             background: white;
             padding: 30px;
             border-radius: 10px;
-            box-shadow: 0 15px 25px rgba(0,0,0,0.2);
+            box-shadow: 0 15px 25px rgba(0,0,0,0.1);
             width: 90%;
             max-width: 900px;
             margin-top: 50px;
         }
         
         .header-painel {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; border-bottom: 2px solid #f0f0f0; padding-bottom: 10px;
         }
 
+        /* Tabela */
         table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
         th { background-color: #f8f9fa; color: #333; }
         tr:hover { background-color: #f1f1f1; }
-        
-        /* Ajuste para imagens de produto ficarem pequenas */
-        .img-produto {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
 
-        /* --- BOTÕES --- */
-        .btn-sair { background-color: #dc3545; color: white; border: none; padding: 8px 20px; cursor: pointer; border-radius: 4px; }
-        .btn-sair:hover { background-color: #c82333; }
-
-        .btn-novo { background-color: #28a745; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-right: 10px; font-weight: bold; }
+        /* Botões Gerais */
+        .btn-novo { background-color: #28a745; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; font-weight: bold; }
         .btn-novo:hover { background-color: #218838; }
+
+        .btn-sair { background-color: #dc3545; color: white; border: none; padding: 10px 15px; border-radius: 5px; cursor: pointer; margin-left: 10px; }
+        .btn-sair:hover { background-color: #c82333; }
 
         .btn-editar { background: #ffc107; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; color: #333; margin-right: 5px; }
         .btn-deletar { background: #dc3545; border: none; padding: 6px 10px; border-radius: 4px; cursor: pointer; color: white; }
 
-        /* --- ESTILOS DO MODAL (JANELA FLUTUANTE) --- */
+        /* --- ESTILOS DO MODAL (CORRIGIDO) --- */
         .modal-container {
-            display: none; /* Começa escondido */
-            position: fixed;
-            top: 0; left: 0;
+            display: none; /* Começa oculto */
+            position: fixed; top: 0; left: 0;
             width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); /* Fundo escuro transparente */
-            justify-content: center;
-            align-items: center;
+            background: rgba(0,0,0,0.6); /* Fundo escuro */
+            justify-content: center; align-items: center;
             z-index: 1000;
+            backdrop-filter: blur(2px);
         }
 
         .modal-content {
             background: white;
             padding: 30px;
-            border-radius: 10px;
-            width: 90%;
-            max-width: 400px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border-radius: 12px;
+            width: 90%; max-width: 400px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
             animation: fadeIn 0.3s;
         }
 
-        .input-group { margin-bottom: 15px; }
-        .input-group label { display: block; margin-bottom: 5px; font-weight: bold; }
-        .input-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        .modal-content h3 { text-align: center; margin-bottom: 20px; color: #333; }
 
-        .modal-botoes { display: flex; justify-content: space-between; margin-top: 20px; }
-        .btn-cancelar { background: #6c757d; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer; }
-        .btn-salvar { background: #764ba2; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; }
+        /* Classe especial para inputs do modal (Evita conflito com login) */
+        .input-group-modal { margin-bottom: 15px; text-align: left; }
+        .input-group-modal label { display: block; margin-bottom: 5px; font-weight: bold; color: #555; font-size: 14px; }
+        .input-group-modal input {
+            width: 100%; padding: 10px;
+            border: 1px solid #ccc; border-radius: 6px;
+            box-sizing: border-box; font-size: 16px;
+        }
+
+        /* Botões do Modal (Lado a Lado) */
+        .modal-botoes { display: flex; gap: 10px; margin-top: 20px; }
+        .btn-cancelar-modal { flex: 1; background: #6c757d; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        .btn-salvar-modal { flex: 1; background: #764ba2; color: white; border: none; padding: 10px; border-radius: 6px; cursor: pointer; font-weight: bold; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
@@ -104,21 +100,18 @@
             </tr>
         </thead>
         <tbody>
-
         <% produtos.forEach(produto => { %>
             <tr>
                 <td><%= produto.nomeProduto %></td>
                 <td style="color:green;font-weight:bold">
-                    <%= Number(produto.precoProduto)
-                        .toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %>
+                    <%= Number(produto.precoProduto).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) %>
                 </td>
                 <td>
                     <button class="btn-editar"
                         onclick="prepararEdicao(
                             '<%= produto.idProduto %>',
                             '<%= produto.nomeProduto %>',
-                            '<%= produto.precoProduto %>',
-                            '<%= produto.imagemProduto || '' %>'
+                            '<%= produto.precoProduto %>'
                         )">
                         <i class="fas fa-edit"></i>
                     </button>
@@ -130,25 +123,31 @@
                 </td>
             </tr>
         <% }) %>
-
         </tbody>
     </table>
 </div>
 
-<!-- MODAL -->
 <div id="modalProduto" class="modal-container">
     <div class="modal-content">
-        <h3 id="tituloModal">Produto</h3>
+        <h3 id="tituloModal">Novo Produto</h3>
 
         <form id="formProduto">
             <input type="hidden" id="idProduto">
 
-            <input type="text" id="nomeProduto" placeholder="Nome" required>
-            <input type="number" id="precoProduto" step="0.01" required>
-            <input type="text" id="imagemProduto" placeholder="Imagem">
+            <div class="input-group-modal">
+                <label>Nome do Produto</label>
+                <input type="text" id="nomeProduto" required placeholder="Ex: Teclado Gamer">
+            </div>
 
-            <button type="submit">Salvar</button>
-            <button type="button" onclick="fecharModal()">Cancelar</button>
+            <div class="input-group-modal">
+                <label>Preço (R$)</label>
+                <input type="number" id="precoProduto" step="0.01" required placeholder="Ex: 150.00">
+            </div>
+
+            <div class="modal-botoes">
+                <button type="button" class="btn-cancelar-modal" onclick="fecharModal()">Cancelar</button>
+                <button type="submit" class="btn-salvar-modal">Salvar</button>
+            </div>
         </form>
     </div>
 </div>
@@ -156,54 +155,85 @@
 <script>
     const API_URL = 'https://api-lojaespricio.onrender.com/produtos';
 
+    // --- FUNÇÕES DE MODAL ---
     function abrirModal() {
-        modalProduto.style.display = 'flex';
-        formProduto.reset();
-        idProduto.value = '';
+        document.getElementById('modalProduto').style.display = 'flex';
+        document.getElementById('formProduto').reset();
+        document.getElementById('idProduto').value = ''; 
+        document.getElementById('tituloModal').innerText = 'Novo Produto';
     }
 
     function fecharModal() {
-        modalProduto.style.display = 'none';
+        document.getElementById('modalProduto').style.display = 'none';
     }
 
-    function prepararEdicao(id, nome, preco, imagem) {
+    // Preenche o modal para edição (Sem imagem)
+    function prepararEdicao(id, nome, preco) {
         abrirModal();
-        idProduto.value = id;
-        nomeProduto.value = nome;
-        precoProduto.value = preco;
-        imagemProduto.value = imagem;
+        document.getElementById('tituloModal').innerText = 'Editar Produto';
+        document.getElementById('idProduto').value = id;
+        document.getElementById('nomeProduto').value = nome;
+        document.getElementById('precoProduto').value = preco;
     }
 
-    async function deletarProduto(id) {
-        if (!confirm('Excluir produto?')) return;
-        await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
-        location.reload();
-    }
-
-    formProduto.addEventListener('submit', async e => {
+    // --- LÓGICA DE SALVAR (POST/PUT) ---
+    const form = document.getElementById('formProduto');
+    
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        const id = document.getElementById('idProduto').value;
+        const nome = document.getElementById('nomeProduto').value;
+        const preco = document.getElementById('precoProduto').value;
+
+        // Monta o objeto sem imagem
         const produto = {
-            nomeProduto: nomeProduto.value,
-            precoProduto: precoProduto.value,
-            imagemProduto: imagemProduto.value
+            nomeProduto: nome,
+            precoProduto: parseFloat(preco),
+            imagemProduto: null 
         };
 
-        const metodo = idProduto.value ? 'PUT' : 'POST';
-        const url = idProduto.value ? `${API_URL}/${idProduto.value}` : API_URL;
+        const metodo = id ? 'PUT' : 'POST';
+        const urlFinal = id ? `${API_URL}/${id}` : API_URL;
 
-        await fetch(url, {
-            method: metodo,
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(produto)
-        });
+        try {
+            const response = await fetch(urlFinal, {
+                method: metodo,
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(produto)
+            });
 
-        location.reload();
+            if(response.ok) {
+                location.reload(); // Recarrega a página para ver a mudança
+            } else {
+                alert("Erro ao salvar produto.");
+            }
+        } catch (error) {
+            console.error("Erro:", error);
+            alert("Erro de conexão.");
+        }
     });
+
+    // --- LÓGICA DE DELETAR ---
+    async function deletarProduto(id) {
+        if (confirm('Tem certeza que deseja excluir este produto?')) {
+            try {
+                const response = await fetch(`${API_URL}/${id}`, { method: 'DELETE' });
+                if(response.ok) {
+                    location.reload();
+                } else {
+                    alert("Erro ao excluir.");
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    }
 
     function sair() {
         window.location.href = '/';
     }
 </script>
+
 </body>
 </html>
