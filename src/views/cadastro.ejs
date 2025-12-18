@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro | Loja Espricio</title>
+    <link rel="stylesheet" href="/css/style.css"> 
+    <style>
+        /* Ajuste rápido para o link de voltar */
+        .link-voltar { display: block; text-align: center; margin-top: 15px; color: #666; text-decoration: none; font-size: 14px;}
+        .link-voltar:hover { color: #764ba2; }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Crie sua Conta</h2>
+        
+        <form id="signupForm">
+            <div class="input-group">
+                <input type="text" id="nomeNew" required placeholder="Nome Completo">
+            </div>
+            <div class="input-group">
+                <input type="text" id="cpfNew" required placeholder="CPF (somente números)" maxlength="11">
+            </div>
+            <div class="input-group">
+                <input type="email" id="emailNew" required placeholder="E-mail">
+            </div>
+            <div class="input-group">
+                <input type="password" id="senhaNew" required placeholder="Senha (min. 8 chars, 1 maiúscula)">
+            </div>
+            
+            <button type="submit" id="btnCadastrar">CADASTRAR</button>
+        </form>
+
+        <div id="mensagemCadastro" style="display:none; margin-top:10px; text-align:center;"></div>
+
+        <a href="/" class="link-voltar">← Voltar para Login</a>
+    </div>
+
+    </body>
+</html>

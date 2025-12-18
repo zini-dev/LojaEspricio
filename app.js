@@ -20,6 +20,26 @@ app.use(express.json()); // Middleware
 app.use(cookieParser());
 app.use(cors());
 
+// No seu app.js
+
+// Rota de Login (já existente)
+app.get('/', (req, res) => {
+    if(req.cookies.token) {
+        // ... (sua lógica de verificação de token existente) ...
+    }
+    res.render('login');
+});
+
+// --- NOVA ROTA DE CADASTRO ---
+app.get('/cadastro', (req, res) => {
+     // Se o usuário já estiver logado, não faz sentido ele se cadastrar de novo
+    if(req.cookies.token) {
+        return res.redirect('/dashboard');
+    }
+    // Renderiza o arquivo cadastro.ejs que criamos no Passo 1
+    res.render('cadastro');
+});
+
 app.get('/', (req, res) => {
     res.render('login');
 });

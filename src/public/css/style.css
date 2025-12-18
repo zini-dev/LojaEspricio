@@ -113,3 +113,22 @@ button:hover { background-color: #5b3a7d; }
     padding: 10px !important;
     height: auto !important;
 }
+
+.signup-link-container {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.link-roxo {
+    color: #764ba2; 
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.link-roxo:hover {
+    color: #5c3b7e;
+    text-decoration: underline;
+}
