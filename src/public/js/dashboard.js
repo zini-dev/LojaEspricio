@@ -1,10 +1,8 @@
-// public/dashboard.js
-
 const API_URL = 'https://api-lojaespricio.onrender.com/produtos';
 
 document.addEventListener('DOMContentLoaded', listarProdutos);
 
-// --- 1. LISTAR (READ) ---
+//1. LISTAR (READ)
 async function listarProdutos() {
     const tabela = document.getElementById('tabelaProdutos');
     try {
@@ -38,7 +36,7 @@ async function listarProdutos() {
     }
 }
 
-// --- 2. SALVAR (CRIAR ou ATUALIZAR) ---
+//2. SALVAR (CRIAR ou ATUALIZAR)
 const form = document.getElementById('formProduto');
 
 form.addEventListener('submit', async (e) => {
@@ -74,7 +72,7 @@ form.addEventListener('submit', async (e) => {
     }
 });
 
-// --- 3. DELETAR (DELETE) ---
+//3. DELETAR (DELETE)
 async function deletarProduto(id) {
     if (confirm("Tem certeza que deseja excluir este produto?")) {
         try {
