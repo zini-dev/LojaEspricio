@@ -82,8 +82,7 @@ app.get('/dashboard', verificarAutenticacao, async (req, res) => {
     }
 });
 
-// --- 5. ROTA DE LOGOUT (SAIR) ---
-// É ISSO AQUI QUE VAI RESOLVER SEU PROBLEMA DE TESTE
+
 app.get('/logout', (req, res) => {
     res.clearCookie('token'); // Apaga a "pulseira"
     res.redirect('/'); // Manda de volta pro login

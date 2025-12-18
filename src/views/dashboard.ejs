@@ -230,8 +230,10 @@
         }
     }
 
+    // --- LÓGICA DE SAIR (CORRIGIDA) ---
     function sair() {
-        window.location.href = '/';
+        // Isso vai chamar a rota /logout do app.js que apaga o cookie
+        window.location.href = '/logout'; 
     }
 </script>
 
